@@ -11,11 +11,13 @@
     "@jhonm/blanc-vdom": "github:jhonm/blanc-vdom",
     "dotenv": "^16.0.3",
     "parcel": "^2.0.0-nightly.1209",
-    "parcel-bundler": "^1.6.1"
+    "parcel-bundler": "^1.6.1",
+    "ramda": "^0.28.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.2",
     "@tsconfig/recommended": "^1.0.1",
+    "@types/ramda": "^0.28.20",
     "autoprefixer": "^10.4.13",
     "eslint": "^8.28.0",
     "eslint-plugin-prettier": "^4.2.1",

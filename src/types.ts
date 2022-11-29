@@ -12,12 +12,9 @@ export type CurrentSeason = {
 };
 
 export type Episode = {
-  number: number;
-  image: string;
   title: string;
   description: string;
   poster: string;
-  releasDate: Date;
 };
 
 export type Model = {
@@ -50,7 +47,7 @@ export type Model = {
   response: string;
   // title: string;
   // currentSeason: CurrentSeason;
-  // episodes: Episode[];
+  episodes: Episode[];
   // rating: number;
   // poster: string;
   isLoading: boolean;
