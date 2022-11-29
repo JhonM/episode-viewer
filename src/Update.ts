@@ -1,20 +1,22 @@
 import type { ActionType, Model } from "./types";
 import { MSGS } from "./types";
+import { mapApiToModel } from "./helpers";
 
-export function getSerie(serie: string) {
+export function getSerie(serie: Model) {
   return {
     type: MSGS.GET_SERIE,
     serie,
   };
 }
 
-function update(msg: ActionType, model: Model): any {
+function update(msg: ActionType, model: Model): Model {
   switch (msg.type) {
     case MSGS.GET_SERIE:
-      const { serie } = msg;
-      return { ...model, serie };
+      const apiToModel = mapApiToModel(Object.entries(msg.serie));
+      const { title, plot } = apiToModel;
+
+      return { ...model, title, plot };
     default:
-      console.log("default");
       return model;
   }
 }
