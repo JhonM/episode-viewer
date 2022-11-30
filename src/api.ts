@@ -18,3 +18,11 @@ export async function getEpisodes() {
 
   return results;
 }
+
+export async function getEpisode(episodeId: string) {
+  const results = await fetch(
+    `http://www.omdbapi.com/?apikey=${process.env.API_KEY}&i=${episodeId}`
+  );
+
+  return results;
+}

@@ -2,35 +2,44 @@ import { h } from "@jhonm/blanc-vdom/src";
 import type { DispatchType, Model } from "../types";
 import {
   getEpisodesMsg,
+  getEpisodeMsg,
   getSerieMsg,
   isLoadingMsg,
   selectCurrentMsg,
 } from "../Update";
-import { getSerie, getEpisodes } from "../api";
+import { getSerie, getEpisodes, getEpisode } from "../api";
 import { SeasonIntroView } from "./season-intro-view";
 import { EpisodeView } from "./episode-view";
 
-export function MainView(dispatch: DispatchType, model: Model) {
+function initialApiCalls(dispatch: DispatchType, model: Model) {
   document.addEventListener("DOMContentLoaded", () => {
     getSerie()
       .then(async (data) => {
         dispatch(isLoadingMsg(true));
         await data.json().then((body) => dispatch(getSerieMsg(body)));
       })
-      .then(() => dispatch(selectCurrentMsg(0)))
       .catch((error) => console.error(error, "error"))
       .finally(() => dispatch(isLoadingMsg(false)));
+
     getEpisodes()
       .then(async (data) => {
         dispatch(isLoadingMsg(true));
-        await data.json().then((body) => dispatch(getEpisodesMsg(body)));
+        await data.json().then((body) => {
+          dispatch(getEpisodesMsg(body));
+          const imdbID = body.Episodes[0].imdbID;
+          getEpisode(imdbID).then(async (data) => {
+            await data.json().then((body) => dispatch(getEpisodeMsg(body)));
+          });
+        });
       })
-      .then(() => dispatch(selectCurrentMsg(0)))
+      .then(() => dispatch(selectCurrentMsg(model.currentIndex)))
       .catch((error) => console.error(error, "error"))
-      .finally(() => {
-        dispatch(isLoadingMsg(false));
-      });
+      .finally(() => dispatch(isLoadingMsg(false)));
   });
+}
+
+export function MainView(dispatch: DispatchType, model: Model) {
+  initialApiCalls(dispatch, model);
 
   return h(
     "div",

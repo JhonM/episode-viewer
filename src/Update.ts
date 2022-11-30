@@ -1,4 +1,4 @@
-import type { ActionType, Model } from "./types";
+import type { Episode, ActionType, Model } from "./types";
 import { MSGS } from "./types";
 import { mapApiToModel } from "./helpers";
 
@@ -13,6 +13,13 @@ export function getEpisodesMsg(episodes: Model["episodes"]) {
   return {
     type: MSGS.GET_EPISODES,
     episodes,
+  };
+}
+
+export function getEpisodeMsg(episode: Episode) {
+  return {
+    type: MSGS.GET_EPISODE,
+    episode,
   };
 }
 
@@ -52,6 +59,11 @@ function update(msg: ActionType, model: Model): Model {
         ...model,
         episodes: [...episodeItemToModel],
       };
+    case MSGS.GET_EPISODE:
+      const currentEpisodeToModel = mapApiToModel(Object.entries(msg.episode));
+      console.log({ ...model, currentEpisode: currentEpisodeToModel });
+      //TODO: Fix typing
+      return { ...model, currentEpisode: currentEpisodeToModel };
     case MSGS.SELECT_CURRENT:
       const { index } = msg;
       const curr = { ...model, currentEpisode: model.episodes[index] };
