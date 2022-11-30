@@ -18,7 +18,7 @@ export function SeasonIntroView(dispatch: DispatchType, model: Model) {
         },
         h(
           "div",
-          {},
+          { class: "relative top-1/4 space-y-32" },
           ...[
             EpisodeInfoView(dispatch, model),
             EpisodeCarouselView(dispatch, model),

@@ -9,12 +9,56 @@ export function getSerieMsg(serie: Model) {
   };
 }
 
+export function getEpisodesMsg(episodes: Model["episodes"]) {
+  return {
+    type: MSGS.GET_EPISODES,
+    episodes,
+  };
+}
+
+export function isLoadingMsg(isLoading: boolean) {
+  return {
+    type: MSGS.IS_LOADING,
+    isLoading,
+  };
+}
+
+export function selectCurrentMsg(index: number) {
+  return {
+    type: MSGS.SELECT_CURRENT,
+    index,
+  };
+}
+
 function update(msg: ActionType, model: Model): Model {
   switch (msg.type) {
     case MSGS.GET_SERIE:
-      const apiToModel = mapApiToModel(Object.entries(msg.serie));
+      const serieReponseToModel = mapApiToModel(Object.entries(msg.serie));
 
-      return { ...model, ...apiToModel };
+      return { ...model, ...serieReponseToModel };
+    case MSGS.GET_EPISODES:
+      const { episodes: episodesResponseToArray } = mapApiToModel(
+        Object.entries(msg.episodes)
+      );
+      const episodesItemsToArray = Object.entries(episodesResponseToArray);
+      const episodeItemToModel = episodesItemsToArray.reduce((acc, arr) => {
+        const toModel = mapApiToModel(Object.entries(arr[1]));
+        //TODO: Fix typing
+        acc.push(toModel);
+        return acc;
+      }, []);
+
+      return {
+        ...model,
+        episodes: [...episodeItemToModel],
+      };
+    case MSGS.SELECT_CURRENT:
+      const { index } = msg;
+      const curr = { ...model, currentEpisode: model.episodes[index] };
+      return curr;
+    case MSGS.IS_LOADING:
+      const { isLoading } = msg;
+      return { ...model, isLoading };
     default:
       return model;
   }

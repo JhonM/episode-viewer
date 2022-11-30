@@ -1,6 +1,8 @@
 export const MSGS = {
   GET_SERIE: "GET_SERIE",
+  GET_EPISODES: "GET_EPISODES",
   SELECT_CURRENT: "SELECT_CURRENT",
+  IS_LOADING: "IS_LOADING",
 } as const;
 
 export type MsgType = typeof MSGS[keyof typeof MSGS];
@@ -12,9 +14,11 @@ export type CurrentSeason = {
 };
 
 export type Episode = {
+  episode: string;
+  released: string;
   title: string;
-  description: string;
-  poster: string;
+  imdbid: string;
+  imdbRating: string;
 };
 
 export type Model = {
@@ -41,20 +45,19 @@ export type Model = {
   metascore: string;
   imdbRating: string;
   imdbVotes: string;
-  imdbID: string;
+  imdbid: string;
   type: string;
   totalSeasons: string;
   response: string;
-  // title: string;
-  // currentSeason: CurrentSeason;
+  currentEpisode: Episode;
   episodes: Episode[];
-  // rating: number;
-  // poster: string;
   isLoading: boolean;
 };
 
 export type ActionType =
   | { type: "GET_SERIE"; serie: Model }
-  | { type: "SELECT_CURRENT" };
+  | { type: "GET_EPISODES"; episodes: Model["episodes"] }
+  | { type: "SELECT_CURRENT"; index: number }
+  | { type: "IS_LOADING"; isLoading: Model["isLoading"] };
 
 export type DispatchType = (action: ActionType) => void;

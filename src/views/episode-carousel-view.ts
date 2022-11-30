@@ -3,7 +3,7 @@ import { h } from "@jhonm/blanc-vdom/src";
 import type { Episode, DispatchType, Model } from "../types";
 import { Carousel } from "../components/Carousel";
 
-function itemView(dispatch, episode: Episode) {
+function itemView(dispatch: DispatchType, episode: Episode) {
   return h(
     "div",
     {

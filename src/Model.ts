@@ -24,7 +24,7 @@ const initModel: Model = {
   metascore: "",
   imdbRating: "",
   imdbVotes: "",
-  imdbID: "",
+  imdbid: "",
   type: "",
   totalSeasons: "",
   response: "",
@@ -34,44 +34,7 @@ const initModel: Model = {
   //   description: "Description",
   //   name: "name",
   // },
-  episodes: [
-    {
-      title: "Episode 1",
-      description: "Description Episode 1",
-      poster: "http://image.url/episode-1",
-    },
-    {
-      title: "Episode 2",
-      description: "Description Episode 2",
-      poster: "http://image.url/episode-2",
-    },
-    {
-      title: "Episode 3",
-      description: "Description Episode 3",
-      poster: "http://image.url/episode-3",
-    },
-    {
-      title: "Episode 4",
-      description: "Description Episode 4",
-      poster: "http://image.url/episode-4",
-    },
-    {
-      title: "Episode 5",
-      description: "Description Episode 5",
-      poster: "http://image.url/episode-5",
-    },
-    {
-      title: "Episode 6",
-      description: "Description Episode 6",
-      poster: "http://image.url/episode-6",
-    },
-    {
-      title: "Episode 7",
-      description: "Description Episode 7",
-      poster: "http://image.url/episode-7",
-    },
-  ],
-  // rating: 3,
+  episodes: [],
 };
 
 export default initModel;
