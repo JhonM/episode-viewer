@@ -66,14 +66,14 @@ export type Model = {
   currentEpisode: Episode;
   episodes: Episode[];
   isLoading: boolean;
-  currentIndex: number;
+  currentIndex: string;
 };
 
 export type ActionType =
   | { type: "GET_SERIE"; serie: Model }
   | { type: "GET_EPISODES"; episodes: Model["episodes"] }
   | { type: "GET_EPISODE"; episode: Episode }
-  | { type: "SELECT_CURRENT"; index: number }
+  | { type: "SELECT_CURRENT"; index: string }
   | { type: "IS_LOADING"; isLoading: Model["isLoading"] };
 
 export type DispatchType = (action: ActionType) => void;

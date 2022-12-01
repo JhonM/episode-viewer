@@ -56,7 +56,7 @@ const initModel: Model = {
     seriesid: "",
   },
   episodes: [],
-  currentIndex: 0,
+  currentIndex: "",
 };
 
 export default initModel;

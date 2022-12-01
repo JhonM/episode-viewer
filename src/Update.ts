@@ -30,7 +30,7 @@ export function isLoadingMsg(isLoading: boolean) {
   };
 }
 
-export function selectCurrentMsg(index: number) {
+export function selectCurrentMsg(index: string) {
   return {
     type: MSGS.SELECT_CURRENT,
     index,
@@ -61,13 +61,16 @@ function update(msg: ActionType, model: Model): Model {
       };
     case MSGS.GET_EPISODE:
       const currentEpisodeToModel = mapApiToModel(Object.entries(msg.episode));
-      console.log({ ...model, currentEpisode: currentEpisodeToModel });
       //TODO: Fix typing
       return { ...model, currentEpisode: currentEpisodeToModel };
     case MSGS.SELECT_CURRENT:
       const { index } = msg;
-      const curr = { ...model, currentEpisode: model.episodes[index] };
-      return curr;
+      const currentEpisode = model.episodes.find(
+        (episode) => episode.imdbid === index
+      );
+      console.log(currentEpisode);
+      console.log(model.episodes[0]);
+      return { ...model, currentEpisode: currentEpisode };
     case MSGS.IS_LOADING:
       const { isLoading } = msg;
       return { ...model, isLoading };

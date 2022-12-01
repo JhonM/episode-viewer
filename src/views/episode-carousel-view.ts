@@ -2,8 +2,10 @@ import * as R from "ramda";
 import { h } from "@jhonm/blanc-vdom/src";
 import type { Episode, DispatchType, Model } from "../types";
 import { Carousel } from "../components/Carousel";
+import { selectCurrentMsg } from "../Update";
 
 function itemView(dispatch: DispatchType, episode: Episode) {
+  // console.log(episode);
   return h(
     "div",
     {
@@ -11,7 +13,7 @@ function itemView(dispatch: DispatchType, episode: Episode) {
     },
     h(
       "div",
-      {},
+      { onclick: (e) => dispatch(selectCurrentMsg(episode.imdbid)) },
       h(
         "div",
         {

@@ -8,7 +8,7 @@ export class Carousel {
   constructor(items: Episode[], id: string) {
     this.items = items;
     this.id = id;
-    this.itemWidth = 300;
+    // this.itemWidth = 300;
   }
 
   public nextItem() {

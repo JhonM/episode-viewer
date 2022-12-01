@@ -27,12 +27,14 @@ function initialApiCalls(dispatch: DispatchType, model: Model) {
         await data.json().then((body) => {
           dispatch(getEpisodesMsg(body));
           const imdbID = body.Episodes[0].imdbID;
+
+          // set current imdbID
+          dispatch(selectCurrentMsg(imdbID));
           getEpisode(imdbID).then(async (data) => {
             await data.json().then((body) => dispatch(getEpisodeMsg(body)));
           });
         });
       })
-      .then(() => dispatch(selectCurrentMsg(model.currentIndex)))
       .catch((error) => console.error(error, "error"))
       .finally(() => dispatch(isLoadingMsg(false)));
   });
